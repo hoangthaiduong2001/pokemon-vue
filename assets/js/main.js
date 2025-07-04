@@ -1910,7 +1910,7 @@ function getRandomInt(min, max) {
 }
 createApp({
   data() {
-    const originalCards = [
+    const cards = [
       {
         id: 1,
         name: "bulbasaur",
@@ -2065,8 +2065,7 @@ createApp({
       },
     ];
     return {
-      originalCards,
-      cards: [...originalCards].sort(() => Math.random() - 0.5),
+      cards: [...cards].sort(() => Math.random() - 0.5),
       selectCard: [],
       pairedCards: [],
       gameResult: {
