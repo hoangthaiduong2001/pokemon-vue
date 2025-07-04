@@ -17,11 +17,6 @@
     <div id="app">
       <div class="page-content">
         <!-- <div class="current-date-time"></div> -->
-        <img
-          src="assets/images/cyberlearn-min-new-opt2.png"
-          alt=""
-          class="logo-pokemon"
-        />
         <h1 class="page-title">Pokemon game</h1>
         <form class="game-options">
           <label for="gameOption1" class="game-options__label"
@@ -30,6 +25,7 @@
               type="radio"
               value="4"
               class="game-options__input"
+              v-model="gameData.selectDeck"
             />
             <svg width="20px" height="20px" viewBox="0 0 20 20">
               <circle cx="10" cy="10" r="9"></circle>
@@ -50,6 +46,7 @@
               type="radio"
               value="6"
               class="game-options__input"
+              v-model="gameData.selectDeck"
             />
             <svg width="20px" height="20px" viewBox="0 0 20 20">
               <circle cx="10" cy="10" r="9"></circle>
@@ -70,6 +67,7 @@
               type="radio"
               value="8"
               class="game-options__input"
+              v-model="gameData.selectDeck"
             />
             <svg width="20px" height="20px" viewBox="0 0 20 20">
               <circle cx="10" cy="10" r="9"></circle>
@@ -90,6 +88,7 @@
               type="radio"
               value="10"
               class="game-options__input"
+              v-model="gameData.selectDeck"
             />
             <svg width="20px" height="20px" viewBox="0 0 20 20">
               <circle cx="10" cy="10" r="9"></circle>
@@ -105,11 +104,17 @@
             <span class="game-options__text"> 10 </span></label
           >
         </form>
+        <div class="game-data">
+          <p class="game-data__item game-data__fails">
+            Count : {{gameData.count}}
+          </p>
+        </div>
         <ul class="game-list-cards">
           <li
             v-for="(card, index) in cards"
-            :key="card.id"
-            class="game-card is-covered"
+            :key="index"
+            class="game-card"
+            :class="{'is-covered': coveredCard.includes(card), 'is-uncovered': uncoveredCard.includes(card)}"
             @click="handleSelectCard(card)"
           >
             <div class="game-card__face game-card-front">
@@ -124,8 +129,15 @@
             </div>
           </li>
         </ul>
-        <button class="button button--game">Reset Game</button>
-        <div class="game-result game-result--win">Win</div>
+        <button class="button button--game" @click="handleResetGame">
+          Reset Game
+        </button>
+        <div v-if="gameResult.win" class="game-result game-result--win">
+          Win
+        </div>
+        <div v-if="gameResult.lose" class="game-result game-result--lose">
+          Lose
+        </div>
         <!---->
       </div>
       <!---->
